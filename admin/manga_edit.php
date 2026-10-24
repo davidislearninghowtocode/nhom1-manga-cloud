@@ -10,7 +10,7 @@ $stmt->execute();
 $manga = $stmt->get_result()->fetch_assoc();
 
 if (!$manga) {
-    echo '<p>Khong tim thay.</p>';
+    echo '<div class="container"><div class="empty-state"><h3>Khong tim thay</h3><a href="manga_list.php" class="btn">Quay lai</a></div></div>';
     include __DIR__ . '/../includes/footer.php';
     exit;
 }
@@ -31,15 +31,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<h2>Sua manga: <?= e($manga['title']) ?></h2>
-<form method="post">
-    <label>Ten: <input type="text" name="title" value="<?= e($manga['title']) ?>" required></label><br>
-    <label>Tac gia: <input type="text" name="author" value="<?= e($manga['author']) ?>"></label><br>
-    <label>Mo ta:<br><textarea name="description" rows="4" cols="40"><?= e($manga['description']) ?></textarea></label><br>
-    <label>Gia: <input type="number" name="price" value="<?= $manga['price'] ?>" required></label><br>
-    <label>Ton kho: <input type="number" name="stock" value="<?= (int)$manga['stock'] ?>"></label><br>
-    <label>Ten file anh: <input type="text" name="image" value="<?= e($manga['image']) ?>"></label><br>
-    <button type="submit" class="btn">Cap nhat</button>
-</form>
+<div class="container">
+    <h2 class="page-title">Sua manga: <?= e($manga['title']) ?></h2>
+    <div class="form-wrap">
+        <form method="post">
+            <label>Ten manga <span class="required">*</span></label>
+            <input type="text" name="title" value="<?= e($manga['title']) ?>" required>
+
+            <label>Tac gia</label>
+            <input type="text" name="author" value="<?= e($manga['author']) ?>">
+
+            <label>Mo ta</label>
+            <textarea name="description" rows="4"><?= e($manga['description']) ?></textarea>
+
+            <label>Gia (VND) <span class="required">*</span></label>
+            <input type="number" name="price" value="<?= $manga['price'] ?>" required>
+
+            <label>So luong ton kho</label>
+            <input type="number" name="stock" value="<?= (int)$manga['stock'] ?>">
+
+            <label>Ten file anh</label>
+            <input type="text" name="image" value="<?= e($manga['image']) ?>">
+
+            <div style="display: flex; gap: 10px; margin-top: 24px;">
+                <button type="submit" class="btn btn-primary">Cap nhat</button>
+                <a href="manga_list.php" class="btn btn-outline">Huy</a>
+            </div>
+        </form>
+    </div>
+</div>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>

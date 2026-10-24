@@ -24,12 +24,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<h2>Dang nhap</h2>
-<?php if ($error): ?><p class="error"><?= e($error) ?></p><?php endif; ?>
-<form method="post">
-    <label>Tai khoan: <input type="text" name="username" required></label><br>
-    <label>Mat khau: <input type="password" name="password" required></label><br>
-    <button type="submit" class="btn">Dang nhap</button>
-</form>
+<div class="auth-wrapper">
+    <h2>Dang nhap</h2>
+    <p class="subtitle">Nhap thong tin de truy cap tai khoan</p>
+    <div class="form-wrap">
+        <?php if ($error): ?><div class="error" style="margin: 0 0 20px 0;"><?= e($error) ?></div><?php endif; ?>
+        <form method="post">
+            <label>Tai khoan</label>
+            <input type="text" name="username" required placeholder="Nhap ten dang nhap">
+            <label>Mat khau</label>
+            <input type="password" name="password" required placeholder="Nhap mat khau">
+            <button type="submit" class="btn btn-primary">Dang nhap</button>
+        </form>
+        <p class="auth-hint">Chua co tai khoan? <a href="/register.php">Dang ky ngay</a></p>
+    </div>
+</div>
 
 <?php include 'includes/footer.php'; ?>

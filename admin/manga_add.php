@@ -19,15 +19,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<h2>Them manga moi</h2>
-<form method="post">
-    <label>Ten: <input type="text" name="title" required></label><br>
-    <label>Tac gia: <input type="text" name="author"></label><br>
-    <label>Mo ta:<br><textarea name="description" rows="4" cols="40"></textarea></label><br>
-    <label>Gia (VND): <input type="number" name="price" step="1000" required></label><br>
-    <label>Ton kho: <input type="number" name="stock" value="0"></label><br>
-    <label>Ten file anh: <input type="text" name="image"></label><br>
-    <button type="submit" class="btn">Luu</button>
-</form>
+<div class="container">
+    <h2 class="page-title">Them manga moi</h2>
+    <div class="form-wrap">
+        <form method="post">
+            <label>Ten manga <span class="required">*</span></label>
+            <input type="text" name="title" required placeholder="Vi du: One Piece - Tap 1">
+
+            <label>Tac gia</label>
+            <input type="text" name="author" placeholder="Vi du: Eiichiro Oda">
+
+            <label>Mo ta</label>
+            <textarea name="description" rows="4" placeholder="Noi dung tom tat..."></textarea>
+
+            <label>Gia (VND) <span class="required">*</span></label>
+            <input type="number" name="price" step="1000" required placeholder="25000">
+            <div class="form-note">Nhap gia tien theo VND</div>
+
+            <label>So luong ton kho</label>
+            <input type="number" name="stock" value="0">
+
+            <label>Ten file anh (tuy chon)</label>
+            <input type="text" name="image" placeholder="onepiece1.jpg">
+
+            <div style="display: flex; gap: 10px; margin-top: 24px;">
+                <button type="submit" class="btn btn-primary">Luu manga</button>
+                <a href="manga_list.php" class="btn btn-outline">Huy</a>
+            </div>
+        </form>
+    </div>
+</div>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>

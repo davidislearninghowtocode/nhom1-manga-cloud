@@ -5,10 +5,13 @@ include 'includes/header.php';
 
 $cart = $_SESSION['cart'] ?? [];
 if (empty($cart)) {
-    echo '<p>Gio hang trong.</p>';
+    echo '<div class="container"><div class="empty-state"><h3>Gio hang trong</h3><p>Hay them san pham truoc khi thanh toan.</p><a href="/" class="btn">Mua sam ngay</a></div></div>';
     include 'includes/footer.php';
     exit;
 }
+
+$success_msg = '';
+$order_id = 0;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn->begin_transaction();
@@ -33,24 +36,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($lines as [$mid, $q, $p]) {
             $stmt->bind_param('iiid', $order_id, $mid, $q, $p);
             $stmt->execute();
-
             $conn->query("UPDATE manga SET stock = stock - $q WHERE id = $mid");
         }
 
         $conn->commit();
         unset($_SESSION['cart']);
-        echo '<p class="success">Dat hang thanh cong! Ma don: #' . $order_id . '</p>';
+        $success_msg = "Dat hang thanh cong. Ma don: #$order_id";
     } catch (Exception $ex) {
         $conn->rollback();
-        echo '<p class="error">Dat hang that bai: ' . e($ex->getMessage()) . '</p>';
+        $success_msg = '';
+        echo '<div class="container"><div class="error">Dat hang that bai: ' . e($ex->getMessage()) . '</div></div>';
     }
-} else {
+}
 ?>
-<h2>Xac nhan don hang</h2>
-<p>Ban se dat <?= array_sum($cart) ?> cuon manga.</p>
-<form method="post">
-    <button type="submit" class="btn">Xac nhan dat hang</button>
-</form>
-<?php }
-include 'includes/footer.php';
-?>
+
+<div class="container">
+    <?php if ($success_msg): ?>
+        <h2 class="page-title">Dat hang thanh cong</h2>
+        <div class="success"><?= e($success_msg) ?></div>
+        <div class="form-wrap">
+            <p style="font-size: 15px; margin-bottom: 20px;">Cam on ban da dat hang. Chung toi se lien he som nhat de xac nhan.</p>
+            <div style="display: flex; gap: 10px;">
+                <a href="/" class="btn btn-primary">Tiep tuc mua sam</a>
+            </div>
+        </div>
+    <?php else: ?>
+        <h2 class="page-title">Xac nhan don hang</h2>
+        <div class="form-wrap">
+            <p style="font-size: 15px; margin-bottom: 24px;">Ban se dat <strong><?= array_sum($cart) ?></strong> cuon manga.</p>
+            <form method="post" style="background: transparent; padding: 0; border: none; max-width: none;">
+                <div style="display: flex; gap: 10px;">
+                    <button type="submit" class="btn btn-primary">Xac nhan dat hang</button>
+                    <a href="cart.php" class="btn btn-outline">Quay lai gio hang</a>
+                </div>
+            </form>
+        </div>
+    <?php endif; ?>
+</div>
+
+<?php include 'includes/footer.php'; ?>
