@@ -1,0 +1,35 @@
+* { box-sizing: border-box; }
+body { font-family: Segoe UI, Arial, sans-serif; margin: 0; background: #f5f5f5; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+header { background: #c0392b; color: #fff; padding: 15px 0; }
+header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+header h1 a { color: #fff; text-decoration: none; }
+header nav a, header nav span { color: #fff; margin-left: 15px; text-decoration: none; }
+
+main { padding: 25px 0; min-height: 60vh; }
+
+.manga-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+.manga-card { background: #fff; padding: 15px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.manga-card h3 { margin: 0 0 8px; font-size: 16px; }
+.manga-card .price { color: #c0392b; font-weight: bold; }
+.manga-card .author { color: #666; font-size: 14px; }
+
+.btn { display: inline-block; padding: 8px 16px; background: #c0392b; color: #fff;
+       text-decoration: none; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+.btn:hover { background: #a52818; }
+
+table { width: 100%; background: #fff; border-collapse: collapse; margin: 15px 0; }
+table th, table td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; }
+table th { background: #f0f0f0; }
+
+form label { display: block; margin: 10px 0; }
+form input, form textarea { padding: 6px; font-size: 14px; }
+
+.manga-detail { background: #fff; padding: 20px; border-radius: 6px; }
+
+.success { color: #27ae60; padding: 10px; background: #d4edda; border-radius: 4px; }
+.error { color: #c0392b; padding: 10px; background: #f8d7da; border-radius: 4px; }
+
+footer { background: #333; color: #fff; padding: 15px 0; margin-top: 30px; font-size: 14px; }
+footer p { margin: 5px 0; }
